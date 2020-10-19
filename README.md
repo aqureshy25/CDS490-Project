@@ -5,7 +5,7 @@ dataset :  https://www.kaggle.com/currie32/crimes-in-chicago?select=Chicago_Crim
 
 
 ## CODE FOR PROJECT : still working on editing a few things to my code as its not fully complete
-# there are also things i need to add as I am ttyingto debug 
+# there are also things i need to add as I am trying to debug and add new modifications to my code 
 library(dplyr)
 library(readr)
 library(ggplot2)
