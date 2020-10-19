@@ -1,0 +1,86 @@
+library(dplyr)
+library(readr)
+library(ggplot2)
+library(knitr)
+library(tidyr)
+
+# Reading Data
+dataraw <- read.csv("Chicago_Crimes_2012_to_2017.csv", stringsAsFactors = FALSE)
+summary(dataraw)
+str(dataraw)
+
+
+# data mining & analysis 
+# omitting data we dont need
+data <- na.omit(dataraw)
+data$Primary.Type <- as.factor(data$Primary.Type)
+data$Description <- as.factor(data$Description) 
+data$Location.Description <- as.factor(data$Location.Description) 
+data$IUCR <- as.factor(data$IUCR) 
+
+data$Arrest[which(data$Arrest == "True")] <- 1
+data$Arrest[which(data$Arrest == "False")] <- 0
+
+data$Domestic[which(data$Domestic == "True")] <- 1
+data$Domestic[which(data$Domestic == "False")] <- 0
+
+head(data)
+
+# Plotting the data  focusing on primary type first
+dataprimary <- ggplot(data,aes(Primary.Type))
+dataprimary + geom_histogram(stat = "count") + coord_flip()
+
+# plotting arrest 
+dataarrest <- ggplot(data,aes(Arrest))
+dataarrest + geom_histogram(stat = "count") + coord_flip()
+
+# plotting year 
+datayear<- ggplot(data,aes(Year))
+datayear + geom_histogram(stat = "count") + coord_flip()
+
+# plotting decsription # this has a lot 
+dataDes<- ggplot(data,aes(Location.Description))
+dataDes + geom_histogram(stat = "count") + coord_flip()
+
+# plotting bar plots to see if i can interpret results better
+barplot(table(data$Year))
+barplot(table(data$Primary.Type))
+barplot(table(data$Location.Description))
+barplot(table(data$Arrest))
+
+# plotting density plot to see the crimes and helps see which year crimes were most committed
+ggplot(data, aes(Year)) +
+  geom_density()
+
+# this is a new implementation to show a pie chart in how may crimes have been committed 
+arrests <- table(data$Arrest)
+lbls <- c("Crime","No crime")
+pct <- round(arrests/sum(arrests)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels
+pie(arrests,labels = lbls, col=rainbow(length(lbls)),
+    main="Crime vs. No Crime")
+
+# next I want to try for the domestic variable to see how many crimes were committed that related to domestic
+domestic <- table(data$Domestic)
+lbls <- c("Domestic","Not Domestic")
+pct <- round(domestic/sum(domestic)*100)
+lbls <- paste(lbls, pct) # add percents to labels
+lbls <- paste(lbls,"%",sep="") # ad % to labels
+pie(domestic,labels = lbls, col=rainbow(length(lbls)),
+    main="Domestic vs. Not Domestic")
+# the pie charts help see the percent of arrest and domestic
+
+# this should the decreasing IUCR which is the reporting code and it relates to the crime type and description
+iucr <- tail(names(sort(table(data$IUCR))), 10)
+iucr1 <- table(data$IUCR)
+barplot(iucr1[order(iucr1, decreasing = TRUE)], xlim = c(0,11))
+
+# observing the top 10 descriptions of crimes which are from building , forcible entry and automobile and etc
+description <- tail(names(sort(table(data$Description))), 10)
+head(description)
+
+# next looking at the location description to see where they occur
+location_description <- tail(names(sort(table(data$Location.Description))), 10)
+head(location_description)
+# we see that it is mostly school , public building , retail and etc
