@@ -84,3 +84,52 @@ head(description)
 location_description <- tail(names(sort(table(data$Location.Description))), 10)
 head(location_description)
 # we see that it is mostly school , public building , retail and etc
+
+# Analysis of the dataset
+# this is to count the crimes that were committed and the count 
+data_crimes <- data %>%
+  group_by(Primary.Type) %>%
+  summarize(count=n()) %>%
+  arrange(desc(count))
+View(data_crimes)
+
+# when we view this table we see that theft is the 1st crime type with 322423 counts and the last one is non-criminal with a count of 4.
+# this helps to see the count 
+
+# I also want to count the description to see which is the most occurring for crime
+data_desc <- data %>%
+  group_by(Description) %>%
+  summarize(count=n()) %>%
+  arrange(desc(count))
+View(data_desc)
+# My analysis shows that simple is the highest count with 147846 and the least is for Violation of summary clouser with a count of 1 
+
+data_loc <- data %>%
+  group_by(Location.Description) %>%
+  summarize(count=n()) %>%
+  arrange(desc(count))
+View(data_loc)
+# My analysis shows that the street has the highest count of 325084 and truck is the lowest with count of 1. 
+
+# the above analysis for primary type , description and location helped quite greatly with knowing what to focus on when I come to a conclusion
+
+# For my next analysis I wanted to add trends that showcase crimes over time and to apply statistical analysis into this dataset
+
+data_crimes <- data %>%
+  mutate(Date = as.Date(Date, "%m/%d/%Y")) %>%
+  group_by(Date) %>%
+  summarize(count = n()) %>%
+  arrange(Date)
+
+plot <- ggplot(data_crimes, aes(x = Date, y = count)) +
+  geom_line(color = "red", size = 0.1) +
+  geom_smooth(color = "black") +
+  scale_x_date(breaks = date_breaks("1 year"), labels = date_format("%Y")) +
+  labs(x = "Date of Crime", y = "Count of Crime", title = "Crimes in Chicago")
+plot
+
+# This analysis showed that the crimes were highest in the years starting from 2012 to 2013 and then the crimes started decreasing 
+# over the years and in 2017 we can see they continue to decrease. 
+# We can predict from this that crimes are continuing to decrease and we see that over the years there have been efforts put in.
+
+
