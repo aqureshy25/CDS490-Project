@@ -132,4 +132,47 @@ plot
 # over the years and in 2017 we can see they continue to decrease. 
 # We can predict from this that crimes are continuing to decrease and we see that over the years there have been efforts put in.
 
+table(data$Year)
+
+
+mean(table(data$Year))
+stan = sd(data$Year)
+stan
+plot(table(data$Year))
+
+Confidence_Interval.min = 236598.5-stan
+Confidence_Interval.min
+
+Confidence_Interval.max=236598.5+stan
+Confidence_Interval.max
+
+mean(table(data$Primary.Type))
+stan = sd(data$Primary.Type)
+stan
+plot(table(data$Primary.Type))
+
+Confidence_Interval.min = 43017.91-stan
+Confidence_Interval.min
+
+Confidence_Interval.max=43017.91+stan
+Confidence_Interval.max
+
+
+mean(table(data$Arrest))
+stan = sd(data$Arrest)
+stan
+plot(table(data$Arrest))
+
+Confidence_Interval.min = 709795.5-stan
+Confidence_Interval.min
+
+Confidence_Interval.max=709795.5+stan
+Confidence_Interval.max
+
+# the results analysis tells me based on my hypothesis which was to predict the average crime rate over time and see if it is greater than 20000 0
+# this also tells me that the average crime is higher than I have predicted and not lower than 20000 which I had though of in my hypothesis 
+# the confidence interval tells us what the values are in between of accepting out hypothesis or not and in this case the confidence interval of average crime per year is (236597.1,236599.9)
+
+
+
 
