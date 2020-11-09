@@ -11,3 +11,4 @@ update: I worked on more analysis over a few variables and made sure to focusing
  
  I worked on polishing my hypothesis and getting the results based on the mean,standard deviation and the confidence intervals of the variables year , arrest , primary type to make sure that I was on the right track with how many crimes were commited per year , which types of crimes and the number of arrests
  I was able to answer my hypotheis and it proved wrong as the rate of crimes per year was higher than I had guessed. 
+ I also wanted to include interative plots using plotly but unfourtunately there were numerous amount of errors I was recieving with the variables , in these last weeks I will most definetly work on making everything perfect and ready and be ready to finsih the project. 
