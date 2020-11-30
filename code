@@ -1,13 +1,22 @@
+# Aamnah Qureshy
+# CDS 490 Final Project
+# 11/30/2020
+
+
+# packages
 library(dplyr)
 library(readr)
 library(ggplot2)
 library(knitr)
 library(tidyr)
+library(scales)
+
 
 # Reading Data
 dataraw <- read.csv("Chicago_Crimes_2012_to_2017.csv", stringsAsFactors = FALSE)
 summary(dataraw)
 str(dataraw)
+dim(dataraw)
 
 
 # data mining & analysis 
@@ -83,7 +92,8 @@ head(description)
 # next looking at the location description to see where they occur
 location_description <- tail(names(sort(table(data$Location.Description))), 10)
 head(location_description)
-# we see that it is mostly school , public building , retail and etc
+
+#we see that it is mostly school , public building , retail and etc
 
 # Analysis of the dataset
 # this is to count the crimes that were committed and the count 
@@ -132,8 +142,9 @@ plot
 # over the years and in 2017 we can see they continue to decrease. 
 # We can predict from this that crimes are continuing to decrease and we see that over the years there have been efforts put in.
 
-table(data$Year)
+# Mean, standard deviations and confidence intervals
 
+table(data$Year)
 
 mean(table(data$Year))
 stan = sd(data$Year)
@@ -169,9 +180,12 @@ Confidence_Interval.min
 Confidence_Interval.max=709795.5+stan
 Confidence_Interval.max
 
-# the results analysis tells me based on my hypothesis which was to predict the average crime rate over time and see if it is greater than 20000 0
-# this also tells me that the average crime is higher than I have predicted and not lower than 20000 which I had though of in my hypothesis 
-# the confidence interval tells us what the values are in between of accepting out hypothesis or not and in this case the confidence interval of average crime per year is (236597.1,236599.9)
+# the results analysis tells me based on my hypothesis which was to predict the average crime rate over time and see if it is greater than 20000
+# this also tells me that the average crime is higher than I have predicted and not lower than 20000 and my hypothesis was supported.
+# the confidence interval tells us what the values are in between of accepting our hypothesis as the confidence interval of average crime per year is (236597.1,236599.9)
+# This portrays how the average crime rate over time is far greater than 20000 and our hypothesis is supported.
+
+
 
 
 
